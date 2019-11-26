@@ -1,0 +1,39 @@
+module complete_row_text;
+
+	// Inputs
+	reg clk;
+	reg pause;
+	reg [219:0] fallen_pieces;
+
+	// Outputs
+	wire [4:0] row;
+	wire enabled;
+
+	// Instantiate the Unit Under Test (UUT)
+	complete_row uut (
+		.clk(clk), 
+		.pause(pause), 
+		.fallen_pieces(fallen_pieces), 
+		.row(row), 
+		.enabled(enabled)
+	);
+parameter CYCLE = 10;
+  initial begin
+  clk=0;
+  forever
+  #(CYCLE/2)
+ clk=~clk;//Ê±ÖÓ·­×ª
+		// Add stimulus here
+	end
+	initial begin
+		pause = 0;
+fallen_pieces = {223'b0,14'b00000110000010,4'b00000110000110};
+		#100;
+        		pause = 1;
+		fallen_pieces = 0;
+				#100;
+        		pause = 0;
+		fallen_pieces = 1;
+	end
+      
+endmodule

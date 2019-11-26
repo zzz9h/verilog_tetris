@@ -1,0 +1,63 @@
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   11:12:32 05/26/2019
+// Design Name:   vga_display
+// Module Name:   C:/Users/zgh29/Desktop/code/vga_display/test.v
+// Project Name:  vga_display
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: vga_display
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module test;
+
+	// Inputs
+	reg clk;
+	reg RESET;
+
+	// Outputs
+	wire [7:0] rgb;
+	wire hsync;
+	wire vsync;
+
+	// Instantiate the Unit Under Test (UUT)
+	vga_display uut (
+		.clk(clk), 
+		.rgb(rgb), 
+		.hsync(hsync), 
+		.vsync(vsync), 
+		.RESET(RESET)
+	);
+
+	parameter CYCLE    = 10;
+   parameter RST_TIME = 5 ; //生成本地时钟100M
+	initial begin
+                clk = 0;
+                forever
+                #(CYCLE/2)
+                clk=~clk;
+            end
+     //产生复位信号
+            initial begin
+                RESET = 0;
+                #2;
+                RESET= 1;
+                #(CYCLE*RST_TIME);
+                RESET = 0;
+            end  
+      
+endmodule
+
